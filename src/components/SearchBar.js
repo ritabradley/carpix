@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 
-const SearchBar = () => {
+const SearchBar = props => {
   let [searchTerm, onInputChange] = useState('');
+
+  const onFormSubmit = e => {
+    e.preventDefault();
+    props.onSubmit(searchTerm);
+  };
+
   return (
     <div className='ui segment'>
-      <form className='ui form'>
+      <form onSubmit={onFormSubmit} className='ui form'>
         <div className='field'>
           <label className='ui label' htmlFor='image-search'>
             Image Search
@@ -13,6 +19,7 @@ const SearchBar = () => {
             id='image-search'
             type='text'
             placeholder='Search...'
+            value={searchTerm}
             onChange={e => onInputChange((searchTerm = e.target.value))}
           />
         </div>
